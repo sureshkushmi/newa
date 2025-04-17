@@ -6,20 +6,19 @@ on:
       - main
 
 jobs:
-  # Job 1: Setup environment and build
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Clone the repository
         uses: actions/checkout@v3
 
-      - name: Set up PHP
+      - name: Set up PHP 8.2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'  # Adjust to your Laravel version
+          php-version: '8.2'
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v3  # ✅ updated to v3
+        uses: actions/cache@v3
         with:
           path: ~/.composer/cache
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -31,7 +30,6 @@ jobs:
           curl -sS https://getcomposer.org/installer | php
           php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
 
-  # Job 2: Run tests
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -39,22 +37,21 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@v3
 
-      - name: Set up PHP
+      - name: Set up PHP 8.2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.2'
 
       - name: Install Composer dependencies
         run: |
           curl -sS https://getcomposer.org/installer | php
           php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Run tests
+      - name: Run Laravel Tests
         run: |
           php artisan migrate --env=testing
           php artisan test
 
-  # Job 3: Deploy to cPanel (via SSH)
   deploy:
     runs-on: ubuntu-latest
     needs: test
@@ -62,7 +59,7 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@v3
 
-      - name: 📂 Upload files to cPanel via SSH
+      - name: 📂 Upload to cPanel via SSH
         uses: appleboy/scp-action@master
         with:
           host: newasanskriti.org.np
