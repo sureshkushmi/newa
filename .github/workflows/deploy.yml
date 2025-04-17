@@ -18,18 +18,18 @@ jobs:
         with:
           php-version: '8.0'  # Adjust to your Laravel version
 
-      - name: Install Composer dependencies
-        run: |
-          curl -sS https://getcomposer.org/installer | php
-          php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
-
       - name: Cache Composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3  # ✅ updated to v3
         with:
           path: ~/.composer/cache
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: |
+          curl -sS https://getcomposer.org/installer | php
+          php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
 
   # Job 2: Run tests
   test:
