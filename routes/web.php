@@ -1,0 +1,46 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DonationController;
+use Illuminate\Support\Facades\Route;
+
+// Old Routes
+Route::get('/', function () {
+    return view('home'); // Change this to your home view after Breeze
+});
+
+Route::get('about', function () {
+    return view('pages.about');
+});
+
+Route::get('programmes', function () {
+    return view('pages.programmes');
+});
+
+Route::get('gallery', function () {
+    return view('pages.gallery');
+});
+
+Route::view('/contact', 'pages.contact')->name('contact');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::view('/donate', 'pages.donate')->name('donate');
+Route::post('/donate', [DonationController::class, 'submit'])->name('donate.submit');
+
+/*New Routes (from Breeze installation)
+Route::get('/', function () {
+    return view('welcome'); // Change this to your home view after Breeze
+}); */
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Breeze authentication routes
+require __DIR__.'/auth.php'; 
