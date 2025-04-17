@@ -1,0 +1,24 @@
+name: Deploy Laravel to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Clone repo
+        uses: actions/checkout@v3
+
+      - name: 📂 Upload files to cPanel via SSH
+        uses: appleboy/scp-action@master
+        with:
+          host: newasanskriti.org.np  # Your domain name (Primary Domain)
+          username: newasanskritiorg  # Your cPanel username
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          port: 22
+          source: "."
+          target: /home/newasanskritiorg/public_html  # The correct path in your cPanel
