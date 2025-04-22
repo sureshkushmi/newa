@@ -21,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('navLinks', [
             ['label' => 'Home', 'url' => url('/')],
-            ['label' => 'About', 'url' => url('/about')],
+            ['label' => 'About Us', 'url' => url('/about')],
+            ['label' => 'Members', 'url' => url('/members')],
             ['label' => 'Programmes', 'url' => url('/programmes')],
             ['label' => 'Gallery', 'url' => url('/gallery')],
             /**[

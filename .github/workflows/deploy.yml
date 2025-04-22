@@ -14,7 +14,7 @@ jobs:
         env:
           MYSQL_DATABASE: newasanskritiorg_newa
           MYSQL_USER: newasanskritiorg_newasanskritiorg
-          MYSQL_PASSWORD: DT_B~t&?SOXN
+          MYSQL_PASSWORD: 'DT_B~t&?SOXN'
           MYSQL_ROOT_PASSWORD: root
         options: >-
           --health-cmd="mysqladmin ping --silent"
@@ -39,6 +39,15 @@ jobs:
       - name: Copy .env
         run: cp .env.example .env
 
+      - name: Update .env DB credentials
+        run: |
+          sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=newasanskritiorg_newa/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=newasanskritiorg_newasanskritiorg/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=DT_B~t&?SOXN/' .env
+
       - name: Set Laravel app key
         run: php artisan key:generate
 
@@ -50,14 +59,10 @@ jobs:
             sleep 2
           done
 
+      - name: Clear config cache
+        run: php artisan config:clear
+
       - name: Run migrations
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: newasanskritiorg_newa
-          DB_USERNAME: newasanskritiorg_newasanskritiorg
-          DB_PASSWORD: DT_B~t&?SOXN
         run: php artisan migrate --force
 
       - name: Run tests

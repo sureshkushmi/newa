@@ -15,6 +15,34 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Add Manage Sliders link here -->
+                    <x-nav-link :href="route('admin.slider.index')" :active="request()->routeIs('admin.slider.index')">
+                        {{ __('Manage Sliders') }}
+                    </x-nav-link>
+
+                    <!-- Add Slogan (booking)  link here -->
+                    <x-nav-link :href="route('admin.slogan.index')" :active="request()->routeIs('admin.slogan.index')">
+                        {{ __('Manage slogan') }}
+                    </x-nav-link>
+                     <!-- Add About  link here -->
+                     <x-nav-link :href="route('admin.about.index')" :active="request()->routeIs('admin.about.index')">
+                        {{ __('Manage About Us') }}
+                    </x-nav-link>
+                    <!-- Add Feature (Preserving Culture,Cultural Excellence,Global Outreach)  link here -->
+                    <x-nav-link :href="route('admin.feature.index')" :active="request()->routeIs('admin.feature.index')">
+                        {{ __('Manage Features') }}
+                    </x-nav-link>
+                    <!-- Add destination (Cultural Preservation,Explore Newa's Cultural Heritage)  link here -->
+                    <x-nav-link :href="route('admin.preservation.index')" :active="request()->routeIs('admin.preservation.index')">
+                        {{ __('Manage Preservation') }}
+                    </x-nav-link>
+                    <!-- Add testimonial (What People says)  link here -->
+                    <x-nav-link :href="route('admin.testimonial.index')" :active="request()->routeIs('admin.testimonial.index')">
+                        {{ __('Manage Testimonial') }}
+                    </x-nav-link>
+
+
                 </div>
             </div>
 
@@ -69,6 +97,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <!-- Add Manage Sliders link here -->
+            <x-responsive-nav-link :href="route('admin.slider.index')" :active="request()->routeIs('admin.slider.index')">
+                {{ __('Manage Sliders') }}
             </x-responsive-nav-link>
         </div>
 
