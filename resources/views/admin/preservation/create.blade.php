@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto py-10 px-6 bg-white shadow-md rounded-lg">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Add New Slider</h1>
+    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Add New Preservation</h1>
 
     @if ($errors->any())
         <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
@@ -14,11 +14,11 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.slider.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="{{ route('admin.preservation.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
         <div>
-            <label class="block text-sm font-medium text-gray-700">Slider Image</label>
+            <label class="block text-sm font-medium text-gray-700">Preservation Image</label>
             <input type="file" name="image" class="mt-1 block w-full border border-gray-300 rounded p-2 shadow-sm focus:ring focus:ring-blue-300">
         </div>
 
@@ -27,10 +27,10 @@
             <input type="text" name="title" class="mt-1 block w-full border border-gray-300 rounded p-2 shadow-sm focus:ring focus:ring-blue-300" required>
         </div>
 
-        <div>
+        <!--<div>
             <label class="block text-sm font-medium text-gray-700">Description</label>
             <textarea name="description" rows="4" class="mt-1 block w-full border border-gray-300 rounded p-2 shadow-sm focus:ring focus:ring-blue-300"></textarea>
-        </div>
+        </div> -->
 
         <div>
             <!-- For the form submit button -->

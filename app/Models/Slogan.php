@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slogan extends Model
 {
-    //
+   protected $fillable = ['title'];
 }

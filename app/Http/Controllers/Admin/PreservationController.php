@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Controller;
 use App\Models\preservation;
 use Illuminate\Http\Request;
 
@@ -12,8 +12,8 @@ class PreservationController extends Controller
      */
     public function index()
     {
-        $preservation = Preservation::all();
-        return view('admin.preservation.index')->with('preservation',$preservation);
+        $preservations = Preservation::all();
+        return view('admin.preservation.index')->with('preservations',$preservations);
     }
 
     /**
@@ -21,7 +21,7 @@ class PreservationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.preservation.create');
     }
 
     /**
@@ -29,7 +29,19 @@ class PreservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=>'nullable|string',
+            'image'=>'required|image',
+        ]);
+         // Store the uploaded image
+         $path = $request->file('image')->store('preservation', 'public');
+         Preservation::create([
+            'title'=>$request->title,
+            'image'=>$path,
+            'description' => $request->description ?? '',
+
+         ]);
+         return redirect()->route('admin.preservation.index')->with('success','data inserted successfully');
     }
 
     /**
@@ -45,7 +57,8 @@ class PreservationController extends Controller
      */
     public function edit(preservation $preservation)
     {
-        //
+        return view('admin.preservation.edit',compact('preservation'));
+
     }
 
     /**
@@ -53,7 +66,19 @@ class PreservationController extends Controller
      */
     public function update(Request $request, preservation $preservation)
     {
-        //
+        $request->validate([
+            'title'=>'nullable|string',
+            'image'=>'nullable|image',
+        ]);
+          // If there's a new image, store it and update the slider's image
+          if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('preservation', 'public');
+            $preservation->update(['image' => $path]);
+        }
+        $preservation->update([
+            'title'=>$request->title,
+        ]);
+        return redirect()->route('admin.preservation.index')->with('success','data updated successfully');
     }
 
     /**
@@ -61,6 +86,7 @@ class PreservationController extends Controller
      */
     public function destroy(preservation $preservation)
     {
-        //
+        $preservation->delete();
+        return redirect()->route('admin.preservation.index')->with('success','data deleted successfully');
     }
 }

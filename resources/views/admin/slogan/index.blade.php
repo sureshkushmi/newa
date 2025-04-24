@@ -28,7 +28,7 @@
                 @forelse($slogans as $slogan)
                     <tr>
                         
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $slogan->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $slogan->title }}</td>
                         <td class="px-6 py-4 whitespace-nowrap space-x-2">
                             {{-- Uncomment to enable edit/delete --}}
                           

@@ -1,20 +1,23 @@
 <?php
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SloganController;
+use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\PreservationController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 
-// Old Routes
-Route::get('/', function () {
-    //return view('home');
-    Route::get('/', [HomeController::class, 'index']);
-});
+Route::get('/', [HomeController::class, 'index']);
+
 
 Route::get('about', function () {
     return view('pages.about');
-});
+})->name('about');
+
 
 Route::get('members', function () {
     return view('pages.members');

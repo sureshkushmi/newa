@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Controller;
 use App\Models\Feature;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class FeatureController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.feature.create');
     }
 
     /**
@@ -29,7 +29,15 @@ class FeatureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=>'required|string',
+            'description'=>'required|string'
+        ]);
+        Feature::create([
+            'title'=>$request->title,
+            'description'=>$request->description,
+        ]);
+        return redirect()->route('admin.feature.index')->with('success','Data inserted successfully');
     }
 
     /**
@@ -45,7 +53,7 @@ class FeatureController extends Controller
      */
     public function edit(Feature $feature)
     {
-        //
+       return view('admin.feature.edit',compact('feature'));
     }
 
     /**
@@ -53,7 +61,15 @@ class FeatureController extends Controller
      */
     public function update(Request $request, Feature $feature)
     {
-        //
+        $request->validate([
+            'title'=>'nullable|string',
+            'description'=>'nullable|string',
+        ]);
+        $feature->update([
+            'title'=>$request->title,
+            'description'=>$request->description,
+        ]);
+        return redirect()->route('admin.feature.index')->with('success','data updated successfully');
     }
 
     /**
@@ -61,6 +77,7 @@ class FeatureController extends Controller
      */
     public function destroy(Feature $feature)
     {
-        //
+        $feature->delete();
+        return redirect()->route('admin.feature.index')->with('success','data deleted successfully');
     }
 }

@@ -36,22 +36,24 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $aboutUs->title }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $aboutUs->slogan }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $aboutUs->description }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-600">
+                        {{ \Illuminate\Support\Str::limit(strip_tags($aboutUs->message), 80, '...') }}   
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap space-x-2">
                             {{-- Uncomment to enable edit/delete --}}
                           
                             <a href="{{ route('admin.about.edit', $aboutUs->id) }}" class="text-blue-600 hover:underline">Edit</a>
-                            <form action="{{ route('admin.about.destroy', $slider->id) }}" method="POST" class="inline">
+                            <form action="{{ route('admin.about.destroy', $aboutUs->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you want to delete ?');">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-red-600 hover:underline">Delete</button>
-                            </form> 
+                            </form>
                             
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-4 text-center text-gray-500">No sliders found.</td>
+                        <td colspan="4" class="px-6 py-4 text-center text-gray-500">No About Us Content found.</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
@@ -12,8 +12,8 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::where('active',1)->paginate(10);
-        return view('admin.testimonial.index',compact('testimonial'));
+        $testimonials = Testimonial::paginate(10);
+        return view('admin.testimonial.index',compact('testimonials'));
     }
 
     /**
@@ -21,7 +21,7 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.testimonial.create');
     }
 
     /**
@@ -29,7 +29,38 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate form input
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'designation' => 'required|string|max:255',
+        'company' => 'required|string|max:255',
+        'message' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'rating' => 'required|numeric|min:1|max:5',
+        'status' => 'required|in:active,inactive',
+    ]);
+
+    // Handle image upload
+    $path = null;
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('testimonials', 'public');
+    }
+
+    $status = ($request->status == 'active') ? 1 : 0;
+
+Testimonial::create([
+    'name' => $request->name,
+    'designation' => $request->designation,
+    'company' => $request->company,
+    'message' => $request->message,
+    'image' => $path,
+    'rating' => $request->rating,
+    'status' => $status,
+    'created_at' => now(),
+    'updated_at' => now(),
+]);
+
+    return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial added successfully!');
     }
 
     /**
@@ -45,7 +76,7 @@ class TestimonialController extends Controller
      */
     public function edit(Testimonial $testimonial)
     {
-        //
+    return view('admin.testimonial.edit',compact('testimonial'));
     }
 
     /**
@@ -53,7 +84,41 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, Testimonial $testimonial)
     {
-        //
+                    // Validate form input
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'designation' => 'nullable|string|max:255',
+        'company' => 'nullable|string|max:255',
+        'message' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'rating' => 'required|numeric|min:1|max:5',
+        'status' => 'required|in:active,inactive',
+    ]);
+
+    // Handle image upload
+    $path = null;
+   // If there's a new image, store it and update the slider's image
+   if ($request->hasFile('image')) {
+    $path = $request->file('image')->store('testimonial', 'public');
+    $slider->update(['image' => $path]);
+    }
+
+    $status = ($request->status == 'active') ? 1 : 0;
+
+    $testimonial->update([
+    'name' => $request->name,
+    'designation' => $request->designation,
+    'company' => $request->company,
+    'message' => $request->message,
+    'image' => $path,
+    'rating' => $request->rating,
+    'status' => $status,
+    'created_at' => now(),
+    'updated_at' => now(),
+    ]);
+
+    return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial updated successfully!');
+         
     }
 
     /**
@@ -61,6 +126,7 @@ class TestimonialController extends Controller
      */
     public function destroy(Testimonial $testimonial)
     {
-        //
+        $testimonial->delete();
+        return redirect()->route('admin.testimonial.index')->with('success','testimonial deleted successfully');
     }
 }
