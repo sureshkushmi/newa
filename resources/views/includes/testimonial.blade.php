@@ -5,19 +5,20 @@
             <h1>What Our Community Says</h1>
         </div>
         <div class="owl-carousel testimonial-carousel">
-            @foreach($testimonials as $testimonial)
-            <div class="text-center pb-4">
-                <img class="img-fluid mx-auto" 
-                     src="{{ asset('storage/' . $testimonial->image) }}" 
-                     style="width: 100px; height: 100px;" 
-                     alt="{{ $testimonial->name }}">
-                <div class="testimonial-text bg-white p-4 mt-n5">
-                    <p class="mt-5">"{{ $testimonial->message }}"</p>
-                    <h5 class="text-truncate">{{ $testimonial->name }}</h5>
-                    <span>{{ $testimonial->position }}</span>
-                </div>
+    @foreach($testimonials as $testimonial)
+        <div class="text-center pb-4">
+            <img class="img-fluid mx-auto" 
+                 src="{{ asset('storage/' . $testimonial->image) }}" 
+                 style="width: 100px; height: 100px;" 
+                 alt="{{ $testimonial->name }}">
+            <div class="testimonial-text bg-white p-4 mt-n5">
+                <p class="mt-5">"{{ $testimonial->message }}"</p>
+                <h5 class="text-truncate">{{ $testimonial->name }}</h5>
+                <span>{{ $testimonial->position }}</span>
             </div>
-            @endforeach
         </div>
+    @endforeach
+</div>
+
     </div>
 </div>

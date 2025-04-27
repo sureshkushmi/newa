@@ -3,7 +3,7 @@
 namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Page;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -33,8 +33,9 @@ class AppServiceProvider extends ServiceProvider
                     ['label' => 'Travel Guides', 'url' => url('/guide')],
                     ['label' => 'Testimonial', 'url' => url('/testimonial')],
                 ]
-            ],*/
-            ['label' => 'Contact', 'url' => url('/contact')],
+            ],
+            ['label' => 'Contact', 'url' => url('/contact')],*/
         ]);
+       // Page::
     }
 }

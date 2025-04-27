@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\PreservationController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
@@ -56,6 +57,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('feature',FeatureController::class);
     Route::resource('preservation',PreservationController::class);
     Route::resource('testimonial',TestimonialController::class);
+    Route::resource('page',PageController::class);
 });
 
 // Breeze authentication routes

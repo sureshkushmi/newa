@@ -8,11 +8,7 @@
             @foreach($preservations as $preservation)
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="destination-item position-relative overflow-hidden mb-2">
-                    <img class="img-fluid" src="{{$preservation->image}}" alt="Cultural Event 1">
-                    <!--<a class="destination-overlay text-white text-decoration-none" href="">
-                        <h5 class="text-white">Traditional Arts</h5>
-                        <span>Preserving Ancient Crafts</span>
-                    </a>-->
+                    <img class="img-fluid" src="{{ asset('storage/'.$preservation->image) }}" alt="{{$preservation->title}}">
                 </div>
             </div>
            @endforeach

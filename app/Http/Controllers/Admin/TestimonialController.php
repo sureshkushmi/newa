@@ -100,7 +100,7 @@ Testimonial::create([
    // If there's a new image, store it and update the slider's image
    if ($request->hasFile('image')) {
     $path = $request->file('image')->store('testimonial', 'public');
-    $slider->update(['image' => $path]);
+    $testimonial->update(['image' => $path]);
     }
 
     $status = ($request->status == 'active') ? 1 : 0;

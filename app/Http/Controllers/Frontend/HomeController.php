@@ -19,7 +19,7 @@ class HomeController extends Controller
             'slogan' => Slogan::first(),
             'about' => About::first(),
             'features' => Feature::latest()->take(3)->get(),
-            'preservations' => Preservation::latest()->take(3)->get(),
+            'preservations' => Preservation::latest()->take(6)->get(),
             'testimonials' => Testimonial::where('status', 1)->get(),
         ]);
     }

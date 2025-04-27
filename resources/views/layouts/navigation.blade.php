@@ -17,29 +17,34 @@
                     </x-nav-link>
 
                     <!-- Add Manage Sliders link here -->
+                    <x-nav-link :href="route('admin.page.index')" :active="request()->routeIs('admin.page.index')">
+                        {{ __('Pages') }}
+                    </x-nav-link>
+
+                    <!-- Add Manage Sliders link here -->
                     <x-nav-link :href="route('admin.slider.index')" :active="request()->routeIs('admin.slider.index')">
-                        {{ __('Manage Sliders') }}
+                        {{ __('Sliders') }}
                     </x-nav-link>
 
                     <!-- Add Slogan (booking)  link here -->
                     <x-nav-link :href="route('admin.slogan.index')" :active="request()->routeIs('admin.slogan.index')">
-                        {{ __('Manage slogan') }}
+                        {{ __('Slogan') }}
                     </x-nav-link>
                      <!-- Add About  link here -->
                      <x-nav-link :href="route('admin.about.index')" :active="request()->routeIs('admin.about.index')">
-                        {{ __('Manage About Us') }}
+                        {{ __('About Us') }}
                     </x-nav-link>
                     <!-- Add Feature (Preserving Culture,Cultural Excellence,Global Outreach)  link here -->
                     <x-nav-link :href="route('admin.feature.index')" :active="request()->routeIs('admin.feature.index')">
-                        {{ __('Manage Features') }}
+                        {{ __('Features') }}
                     </x-nav-link>
                     <!-- Add destination (Cultural Preservation,Explore Newa's Cultural Heritage)  link here -->
                     <x-nav-link :href="route('admin.preservation.index')" :active="request()->routeIs('admin.preservation.index')">
-                        {{ __('Manage Preservation') }}
+                        {{ __('Preservation') }}
                     </x-nav-link>
                     <!-- Add testimonial (What People says)  link here -->
                     <x-nav-link :href="route('admin.testimonial.index')" :active="request()->routeIs('admin.testimonial.index')">
-                        {{ __('Manage Testimonial') }}
+                        {{ __('Testimonial') }}
                     </x-nav-link>
 
 
